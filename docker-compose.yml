@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  web:
+    build: .
+    restart: always
+    command: sh -c "python /code/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./src:/code:Z
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    environment: 
+      DEBUG: 'True'
+      DB_NAME: postgres
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: db
+
+volumes:
+  postgres:
