@@ -2,6 +2,7 @@ from django.urls import path, include
 from rest_framework import routers
 from rest_framework.schemas import get_schema_view
 from django.views.generic import TemplateView
+from rest_framework.authtoken.views import obtain_auth_token
 
 from schedule.views import (TimeShemeViewSet, RoomViewSet, SubjectsViewSet,
                             CustomUserCreate)
@@ -14,7 +15,7 @@ router.register(r'subjects', SubjectsViewSet, basename='subject')
 
 # urlpatterns = router.urls
 urlpatterns = [
-    path('/api/', include(router.urls)),
+    path('api/', include(router.urls)),
     path('openapi', get_schema_view(
         title="Mercury",
         description="Mercury API Shema",
@@ -25,6 +26,7 @@ urlpatterns = [
         extra_context={'schema_url': 'openapi-schema'}
     ), name='redoc'),
 
-    path('create-user/', CustomUserCreate.as_view()),
+    path('api/create-user/', CustomUserCreate.as_view()),
+    path('api/api-token-auth/', obtain_auth_token, name='api_token_auth'),
     path('', TemplateView.as_view(template_name='index.html'), name='index')
 ]
