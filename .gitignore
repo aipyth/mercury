@@ -137,4 +137,9 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-.vscode/
+node_modules
+gulpfile.js
+package-lock.json
+package.json
+gulp
+front

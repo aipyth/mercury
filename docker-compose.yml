@@ -17,7 +17,7 @@ services:
     volumes:
       - ./src:/code:Z
     ports:
-      - 8000:8000
+      - 8002:8000
     depends_on:
       - db
     environment: 
