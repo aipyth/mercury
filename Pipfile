@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 pylint = "*"
 autopep8 = "*"
+pyrogram = "*"
 
 [packages]
 asgiref = "==3.2.10"
@@ -19,6 +20,7 @@ PyJWT = "==1.7.1"
 psycopg2-binary = "*"
 pyyaml = "*"
 uritemplate = "*"
+python-telegram-bot = "*"
 
 [requires]
 python_version = "3.9"

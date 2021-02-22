@@ -26,6 +26,9 @@ services:
       DB_USER: postgres
       DB_PASSWORD: postgres
       DB_HOST: db
+      DJANGO_SETTINGS_MODULE: 'mercury.settings'
+      
+      BOT_TOKEN: 891813961:AAHYckYPSgId3WABKQZ27q-Rx1FnTXsayA4
 
 volumes:
   postgres:

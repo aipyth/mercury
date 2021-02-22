@@ -145,3 +145,4 @@ package.json
 gulp
 front
 .vscode
+*.session

@@ -38,15 +38,16 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return user
 
 
-class RoomSerializer(serializers.HyperlinkedModelSerializer):
-    subjects = serializers.HyperlinkedRelatedField(
-        many=True, read_only=True, view_name='subject-detail'
-    )
+# class RoomSerializer(serializers.HyperlinkedModelSerializer):
+class RoomSerializer(serializers.ModelSerializer):
+    # subjects = serializers.HyperlinkedRelatedField(
+    #     many=True, read_only=True, view_name='subject-detail'
+    # )
 
     class Meta:
         model = Room
-        fields = ['url', 'name', 'period', 'start_date', 'end_date', 'public',
-                  'subjects']
+        exclude = ['owner']
+        depth = 1
 
 
 class SubjectSerializer(serializers.ModelSerializer):
