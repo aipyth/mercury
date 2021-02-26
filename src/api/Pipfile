@@ -1,0 +1,27 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "*"
+autopep8 = "*"
+pyrogram = "*"
+
+[packages]
+asgiref = "==3.2.10"
+djangorestframework = "==3.11.1"
+djangorestframework-jwt = "==1.11.0"
+pytz = "==2020.1"
+sqlparse = "==0.3.1"
+Django = "==3.1.1"
+Markdown = "==3.2.2"
+PyJWT = "==1.7.1"
+psycopg2-binary = "*"
+pyyaml = "*"
+uritemplate = "*"
+python-telegram-bot = "*"
+imgkit = "*"
+
+[requires]
+python_version = "3.9"
