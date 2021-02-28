@@ -3,15 +3,15 @@ from rest_framework import serializers
 
 from users.models import CustomUser
 
-from schedule.models import TimeSheme, Room, Subject
+from schedule.models import TimeSchema, Room, Subject
 
 
-class TimeShemeSerializer(serializers.ModelSerializer):
+class TimeSchemaSerializer(serializers.ModelSerializer):
     items = serializers.JSONField()
 
     class Meta:
-        model = TimeSheme
-        fields = ('id', 'name', 'items')
+        model = TimeSchema
+        fields = ('id', 'name', 'items', 'public')
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
@@ -46,8 +46,13 @@ class RoomSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Room
-        exclude = ['owner']
-        depth = 1
+        # fields = "__all__"
+        fields = (
+            'id', 'name', 'slug', 'period', 'time_schema', 'start_date',
+            'end_date', 'public', 'schedule_image', 'schedule_image_thumb',
+        )
+        # exclude = ['owner']
+        # depth = 1
 
 
 class SubjectSerializer(serializers.ModelSerializer):

@@ -8,7 +8,10 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - ./postgres:/var/lib/postgresql/data:Z
+    ports:
+      - 8003:5432
+    
 
   web:
     build: ./src/api
@@ -30,12 +33,13 @@ services:
 
   bot:
     build: ./src/bot
-    # depends_on:
-    #   - db
+    restart: always
+    depends_on:
+      - db
     env_file:
       - ./.env
     volumes:
       - ./src/bot:/bot:Z
 
-volumes:
-  postgres:
+# volumes:
+#   postgres:

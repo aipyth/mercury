@@ -1,9 +1,10 @@
-module mercury-bot
+module bot
 
-go 1.14
+go 1.16
 
 require (
-	github.com/SebastiaanKlippert/go-wkhtmltopdf v1.6.1 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
+	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible // indirect
+	github.com/jackc/pgx/v4 v4.10.1 // indirect
+	github.com/technoweenie/multipartstreamer v1.0.1 // indirect
 	gopkg.in/tucnak/telebot.v2 v2.3.5 // indirect
 )

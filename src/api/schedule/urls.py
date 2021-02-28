@@ -4,11 +4,11 @@ from rest_framework.schemas import get_schema_view
 from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
 
-from schedule.views import (TimeShemeViewSet, RoomViewSet, SubjectsViewSet,
-                            CustomUserCreate)
+from schedule.views import (TimeSchemaViewSet, RoomViewSet, SubjectsViewSet,
+                            CustomUserCreate, RoomDetailView)
 
 router = routers.DefaultRouter()
-router.register(r'timeshemes', TimeShemeViewSet, basename='timesheme')
+router.register(r'timeshemes', TimeSchemaViewSet, basename='timeschema')
 router.register(r'rooms', RoomViewSet, basename='room')
 router.register(r'subjects', SubjectsViewSet, basename='subject')
 
@@ -28,5 +28,7 @@ urlpatterns = [
 
     path('api/create-user/', CustomUserCreate.as_view()),
     path('api/api-token-auth/', obtain_auth_token, name='api_token_auth'),
-    path('', TemplateView.as_view(template_name='index.html'), name='index')
+    path('', TemplateView.as_view(template_name='index.html'), name='index'),
+    path('room/<int:pk>/', RoomDetailView.as_view()),
+    path('room/<slug:slug>/', RoomDetailView.as_view()),
 ]

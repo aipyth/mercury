@@ -22,6 +22,7 @@ pyyaml = "*"
 uritemplate = "*"
 python-telegram-bot = "*"
 imgkit = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.9"

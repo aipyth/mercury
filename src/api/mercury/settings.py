@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", 'o$dzls@!h#ci#o&foruyak@d&f*pq8o49h%h@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') != 'False'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['web', 'localhost', 'bcf5ea51e6a1.ngrok.io']
 
 
 # Application definition
@@ -143,5 +143,11 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
+
+# Base url to serve media files
+MEDIA_URL = '/media/'
+
+# Path where media is stored
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 AUTH_USER_MODEL = 'users.CustomUser'
