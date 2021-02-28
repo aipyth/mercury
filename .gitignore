@@ -148,3 +148,4 @@ front
 *.session
 
 src/api/media/
+postgres/
