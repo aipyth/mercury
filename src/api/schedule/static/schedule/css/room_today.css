@@ -1,0 +1,12 @@
+.content .left-side {
+    flex-basis: 100%
+}
+
+.header .logo {
+    flex-basis: 100%;
+    justify-content: center;
+}
+
+.subjects .name {
+    font-size: 1.15em;
+}
