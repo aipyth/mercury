@@ -25,7 +25,7 @@ class CustomManager(models.Manager):
 
 
 class TimeSchema(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     items = models.TextField()
     public = models.BooleanField(default=False)
 
