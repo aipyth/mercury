@@ -8,7 +8,7 @@ from schedule.views import (TimeSchemaViewSet, RoomViewSet, SubjectsViewSet,
                             CustomUserCreate, RoomDetailView)
 
 router = routers.DefaultRouter()
-router.register(r'timeshemes', TimeSchemaViewSet, basename='timeschema')
+router.register(r'timeschemes', TimeSchemaViewSet, basename='timeschema')
 router.register(r'rooms', RoomViewSet, basename='room')
 router.register(r'subjects', SubjectsViewSet, basename='subject')
 
