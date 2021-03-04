@@ -21,6 +21,13 @@ class TimeSchemaViewSet(viewsets.ModelViewSet):
         IsOwnerOrReadOnly,
     ]
 
+    def get_queryset(self):
+        queryset = TimeSchema.objects.all()
+        search = self.request.query_params.get('search', None)
+        if search is not None:
+            queryset = queryset.filter(name__startswith=search)
+        return queryset
+
 
 class CustomUserCreate(generics.CreateAPIView):
     queryset = CustomUser.objects.all()

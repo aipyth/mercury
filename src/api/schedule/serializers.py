@@ -50,9 +50,10 @@ class RoomSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'name', 'slug', 'period', 'time_schema', 'start_date',
             'end_date', 'public', 'schedule_image', 'schedule_image_thumb',
+            'subjects',
         )
         # exclude = ['owner']
-        # depth = 1
+        depth = 1
 
 
 class SubjectSerializer(serializers.ModelSerializer):

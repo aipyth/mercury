@@ -8,7 +8,7 @@ from schedule.views import (TimeSchemaViewSet, RoomViewSet, SubjectsViewSet,
                             CustomUserCreate, RoomDetailView)
 
 router = routers.DefaultRouter()
-router.register(r'timeshemes', TimeSchemaViewSet, basename='timeschema')
+router.register(r'timeschemes', TimeSchemaViewSet, basename='timeschema')
 router.register(r'rooms', RoomViewSet, basename='room')
 router.register(r'subjects', SubjectsViewSet, basename='subject')
 
@@ -31,4 +31,5 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
     path('room/<int:pk>/', RoomDetailView.as_view()),
     path('room/<slug:slug>/', RoomDetailView.as_view()),
+    path('<slug:slug>/', TemplateView.as_view(template_name='index.html'))
 ]
