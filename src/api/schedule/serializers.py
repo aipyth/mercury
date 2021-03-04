@@ -43,6 +43,7 @@ class RoomSerializer(serializers.ModelSerializer):
     # subjects = serializers.HyperlinkedRelatedField(
     #     many=True, read_only=True, view_name='subject-detail'
     # )
+    # subjects = serializers.SerializerMethodField('get_subjects')
 
     class Meta:
         model = Room
@@ -53,7 +54,10 @@ class RoomSerializer(serializers.ModelSerializer):
             'subjects',
         )
         # exclude = ['owner']
-        depth = 1
+        # depth = 1
+    
+    # def get_subjects(self, obj):
+    #     return SubjectSerializer(obj.subjects.all())
 
 
 class SubjectSerializer(serializers.ModelSerializer):
