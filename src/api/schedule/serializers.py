@@ -38,28 +38,6 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return user
 
 
-# class RoomSerializer(serializers.HyperlinkedModelSerializer):
-class RoomSerializer(serializers.ModelSerializer):
-    # subjects = serializers.HyperlinkedRelatedField(
-    #     many=True, read_only=True, view_name='subject-detail'
-    # )
-    # subjects = serializers.SerializerMethodField('get_subjects')
-
-    class Meta:
-        model = Room
-        # fields = "__all__"
-        fields = (
-            'id', 'name', 'slug', 'period', 'time_schema', 'start_date',
-            'end_date', 'public', 'schedule_image', 'schedule_image_thumb',
-            'subjects',
-        )
-        # exclude = ['owner']
-        # depth = 1
-    
-    # def get_subjects(self, obj):
-    #     return SubjectSerializer(obj.subjects.all())
-
-
 class SubjectSerializer(serializers.ModelSerializer):
     days_and_orders = serializers.JSONField()
     
@@ -76,3 +54,16 @@ class SubjectSerializer(serializers.ModelSerializer):
         ret = super().to_internal_value(data)
         ret['days_and_orders'] = json.dumps(ret['days_and_orders'])
         return ret
+
+
+# class RoomSerializer(serializers.HyperlinkedModelSerializer):
+class RoomSerializer(serializers.ModelSerializer):
+    subjects = SubjectSerializer(many=True)
+
+    class Meta:
+        model = Room
+        fields = (
+            'id', 'name', 'slug', 'period', 'time_schema', 'start_date',
+            'end_date', 'public', 'schedule_image', 'schedule_image_thumb',
+            'subjects',
+        )
