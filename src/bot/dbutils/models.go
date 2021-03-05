@@ -74,9 +74,35 @@ func (r *Room) DayToday() (int64, time.Weekday) {
 	return day, time.Now().Weekday()
 }
 
+func (r *Room) DayTomorrow() (int64, time.Weekday) {
+	offset := time.Now().Sub(r.StartDate)
+	day := int64(math.Floor(offset.Hours() / 24) + 1) % r.Period
+	return day, time.Now().Weekday() + 1
+}
+
 func (r *Room) ScheduleToday() DaySchedule {
 	subjects := r.GetSubjects()
 	day, weekday := r.DayToday()
+	schedule := DaySchedule{
+		RoomInstance: r,
+		Day: day,
+		Weekday: weekday,
+		Subjects: make(map[int64]Subject),
+	}
+
+	for _, subject := range subjects {
+		if len(subject.DaysAndOrders[day]) != 0 {
+			for _, order := range subject.DaysAndOrders[day] {
+				schedule.Subjects[order] = subject
+			}
+		}
+	}
+	return schedule
+}
+
+func (r *Room) ScheduleTomorrow() DaySchedule {
+	subjects := r.GetSubjects()
+	day, weekday := r.DayTomorrow()
 	schedule := DaySchedule{
 		RoomInstance: r,
 		Day: day,
@@ -102,7 +128,8 @@ func (s Subject) ToRepresentation() string {
 }
 
 func (d DaySchedule) ToRepresentation() string {
-	output := fmt.Sprintf("\t<u><b>%s</b></u>\n\n", d.RoomInstance.Name)
+	output := fmt.Sprintf("\t<u><b>%s</b></u> %s\n",
+		d.RoomInstance.Name, d.Weekday)
 
 	add := func (s ...string) {
 		for _, ss := range s {
@@ -111,12 +138,12 @@ func (d DaySchedule) ToRepresentation() string {
 	}
 	timeSchemaReprs := d.RoomInstance.TimeSchema.TimeToRepresentation()
 	for i := 0; i < d.RoomInstance.TimeSchema.Entries(); i++ {
-		add(fmt.Sprintf("<b>%d.</b> ", i+1))
+		add(fmt.Sprintf("\n<b>%d.    </b> ", i+1))
 		if d.Subjects[int64(i)].DaysAndOrders != nil {
 			add(timeSchemaReprs[i])
 			add("\n   ")
 			add(d.Subjects[int64(i)].ToRepresentation())
-			add("\n\n")
+			add("\n")
 		}
 	}
 
