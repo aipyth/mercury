@@ -9,11 +9,11 @@ import (
 	_ "github.com/jackc/pgx/v4/stdlib"
 )
 
-const db_host = "db"
-const db_port = 5432
-const db_name = "postgres"
-const db_user = "postgres"
-const db_password = "postgres"
+var db_host = os.Getenv("DB_HOST")
+var db_port = 5432
+var db_name = os.Getenv("DB_NAME")
+var db_user = os.Getenv("DB_PASSWORD")
+var db_password = os.Getenv("DB_PASSWORD")
 
 const INLINE_PAGINATION_LIMIT = 2
 
