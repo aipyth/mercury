@@ -12,7 +12,7 @@ import (
 var db_host = os.Getenv("DB_HOST")
 var db_port = 5432
 var db_name = os.Getenv("DB_NAME")
-var db_user = os.Getenv("DB_PASSWORD")
+var db_user = os.Getenv("DB_USER")
 var db_password = os.Getenv("DB_PASSWORD")
 
 const INLINE_PAGINATION_LIMIT = 2
