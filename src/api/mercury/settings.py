@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", 'o$dzls@!h#ci#o&foruyak@d&f*pq8o49h%h@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') != 'False'
 
-ALLOWED_HOSTS = ['web', 'localhost', 'bcf5ea51e6a1.ngrok.io']
+ALLOWED_HOSTS = ['web', 'localhost', '35.157.57.87', '.mercury.click']
 
 
 # Application definition
@@ -95,7 +95,7 @@ DATABASES = {
         'NAME': os.environ.get('DB_NAME', 'postgres'),
         'USER': os.environ.get('DB_USER', 'postgres'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'postgres'),
-        'HOST': os.environ.get('HOST', 'db'),
+        'HOST': os.environ.get('DB_HOST', 'db'),
         'PORT': 5432,
     }
 }

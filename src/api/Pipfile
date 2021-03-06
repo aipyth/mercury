@@ -23,6 +23,7 @@ uritemplate = "*"
 python-telegram-bot = "*"
 imgkit = "*"
 pillow = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.9"
