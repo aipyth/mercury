@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", 'o$dzls@!h#ci#o&foruyak@d&f*pq8o49h%h@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') != 'False'
 
-ALLOWED_HOSTS = ['web', 'localhost', '35.157.57.87', '.mercury.click']
+ALLOWED_HOSTS = ['web', '0.0.0.0', 'localhost', '35.157.57.87', '.mercury.click']
 
 
 # Application definition

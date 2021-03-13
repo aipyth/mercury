@@ -58,7 +58,7 @@ class SubjectSerializer(serializers.ModelSerializer):
 
 # class RoomSerializer(serializers.HyperlinkedModelSerializer):
 class RoomSerializer(serializers.ModelSerializer):
-    subjects = SubjectSerializer(many=True)
+    subjects = SubjectSerializer(many=True, read_only=True)
 
     class Meta:
         model = Room
@@ -67,3 +67,4 @@ class RoomSerializer(serializers.ModelSerializer):
             'end_date', 'public', 'schedule_image', 'schedule_image_thumb',
             'subjects',
         )
+        read_only_fields = ['subjects', 'schedule_image', 'schedule_image_thumb']
