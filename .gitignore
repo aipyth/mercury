@@ -138,11 +138,6 @@ dmypy.json
 cython_debug/
 
 node_modules
-gulpfile.js
-package-lock.json
-package.json
-gulp
-front
 .vscode
 *.session
 

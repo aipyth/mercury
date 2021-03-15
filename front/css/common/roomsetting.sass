@@ -1,0 +1,129 @@
+.room-settings-block
+    @include block-like
+    background-color: $grey
+    margin: 3em auto
+    width: 65vw
+    padding: 1em 0.5em
+    .settings-head
+            font-size: 30px
+            padding-bottom: 10px
+            border-bottom: 3px  solid $dark-green
+            margin: 0 40px
+            h2
+                color: $dark-green
+                text-align: center
+                font-size: 35px
+    .room-settings-content
+        padding: 1em 0.5em
+        .blocks
+            display: flex
+            div
+                padding: 0 15px
+                h3 
+                    text-align: center
+                    color: $dark-green
+                    margin: 15px
+            .left-block
+                border-right: 1px solid $dark-green
+                flex-basis: 50%
+                .room-setting
+                    display: flex
+                    flex-direction: column
+                    .label
+                        display: flex
+                        justify-content: space-around
+                        padding-top: 20px
+                        span
+                            flex-basis: 50%
+                            text-align: center
+                            font-size: 15px
+                        input, select
+                            flex-basis: 50%
+                            font-size: 15px
+                    #error-message
+                        h4
+                            color: red
+                            font-size: 20px
+                            margin-top: 20px
+                            text-align: center
+            .right-block
+                border-left: 1px solid $dark-green
+                flex-basis: 50%
+                .label
+                    display: flex
+                    justify-content: space-around
+                    padding-top: 20px
+                    input::placeholder
+                        color: red
+                ol
+                    padding-inline-start: 20px
+                    margin: 0
+                li
+                    padding: 0
+                    padding-top: 12px
+                    .displays
+                        display: flex
+                        flex-direction: row
+                        justify-content: flex-start
+                        div
+                            padding: 0 10px
+                            display: flex
+                            align-items: center
+                            h5 
+                                font-size: 15px
+                                font-weight: 300
+                        .timedisplay
+                            display: flex
+                            font-size: 20px
+                            div
+                                *
+                                    padding: 0
+                                .timenumber
+                                    display: flex
+                                    flex-direction: column
+                                    i
+                                        font-size: 10px
+                                        color: $dark-green
+                                    i:hover
+                                        cursor: pointer
+                                    .triangle-up
+                                        order: -1
+                                span
+                                    background-color: #fff
+                                    padding: 3px
+                                    border: 1.5px solid $olive
+                                    border-radius: 2px
+                                    position: relative
+                    .slider-range
+                        .wrap
+                            padding: 0
+                .createsheme
+                    @include button-like
+                    font-size: 20px
+                    margin-top: 10px
+                    max-width: max-content
+                    padding: 5px
+        .room-block
+            width: 100%
+            padding: 15px
+            margin: 0 40px
+            display: flex
+            justify-content: space-between
+            border-bottom: 2px solid $dark-green
+            font-size: 22px
+            color: $black
+            background-color: rgba(122, 159, 151, 0.0)
+            span.room-info
+                color: $dark-green
+                font-weight: bold
+                font-size: 24px
+        .room-block:hover
+            filter: brightness(1.4)
+            background-color: rgba(122, 159, 151, 0.4)
+            cursor: pointer
+    .createroom
+        @include button-like
+        width: 75%
+                
+
+        

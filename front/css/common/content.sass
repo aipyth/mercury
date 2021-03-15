@@ -1,0 +1,111 @@
+.content
+    height: 86vh
+    display: flex
+    width: 95%
+    margin: 0 auto
+    .left-side
+        flex-basis: 40%
+        padding: 10px
+        display: flex
+        flex-flow: column
+        .shedule-main
+            @include shedule
+            padding: 10px
+            margin: 20px
+            flex-basis: 100%
+            .head
+                margin: -10px
+                font-size: 20px
+                padding-top: 7px
+                padding-bottom: 7px
+            .subjects
+                margin-top: 20px
+                padding-left: 15px
+                padding-right: 15px
+                .subj-section
+                    display: flex
+                    border-bottom: 1.5px solid $olive
+                    font-size: 18px
+                    padding: 4px 0
+                    .num
+                        padding: 5px
+                    .name
+                        padding: 5px
+                    .time
+                        padding: 5px
+            .tasks
+                color: $black 
+                padding-left: 10px
+                padding-right: 10px
+                .tasks-head
+                    display: flex
+                    justify-content: center
+                    h4
+                        margin: 10px
+                        font-size: 20px
+                .task
+                    padding: 5px
+                    h5
+                        font-size: 18px
+                        margin-bottom: 5px
+                    p
+                        font-size: 14px
+                        margin-left: 10px
+    .right-side
+        padding-top: 10px
+        flex-basis: 60%
+        display: flex
+        flex-wrap: wrap
+        justify-content: start
+        margin-left: 15px
+        .shedule
+            flex-basis: 29%
+            margin: 12px
+            @include shedule
+            transition: all 0.5s ease
+            .head
+                padding-bottom: 5px
+                padding-top: 5px
+            .subjects
+                font-size: 16px
+                margin-top: 10px
+                margin: 5px 15px
+                .subj-section
+                    position: relative
+                    padding: 4px 0
+                    border-bottom: 1px solid $olive
+                    .name
+                        flex-basis: 100%
+                        justify-content: start
+                        padding-left: 10px
+                    .error
+                        font-size: 12px !important
+                        color: red !important
+        .shedule:hover
+            transform: scale(1.05)
+            cursor: pointer
+        .nextweek-field
+            display: flex
+            flex-basis: 33%
+            align-items: flex-end
+            justify-content: center 
+            .nextweek-button
+                display: flex
+                padding: 40px
+                font-size: 25px
+                color: $dark-green
+                span
+                    display: inline-block
+                    transition: all 0.6s ease
+                    padding: 2px 10px
+                    font-size: 28px
+                #prevweek
+                    order: -1
+                #nextweek:hover
+                    cursor: pointer
+                    transform: translateX(5px)
+                #prevweek:hover
+                    cursor: pointer
+                    transform: translateX(-5px)
+                .thisweekhiden
+                    display: none

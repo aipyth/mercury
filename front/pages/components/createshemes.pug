@@ -1,0 +1,77 @@
+section(class = "room-settings hidden")
+    .room-settings-block#create-rm
+        .settings-head 
+            h2 <span id="settings-left")> < </span>Create room<span id="settings-right"> > </span> 
+        .settings-content 
+            .room-settings-content
+                .blocks
+                    .left-block
+                        .room-setting
+                            h3 Create room
+                            .label
+                                span Time sheme
+                                select(id="namesheme" name="namesheme")
+                                    option  ...
+                            .label
+                                span Period
+                                select(id="period" name="period" )
+                                    option 7
+                                    option 14
+                            .label
+                                span Start date
+                                input(type="date" id="start-date" name="start-date")
+                            .label
+                                span End date
+                                input(type="date" id="end-date" name="end-date")
+                            .label
+                                span Name
+                                input(type="text" id="name" name="name")
+                            .label
+                                span Is public
+                                input(type="checkbox" name="is-public" id="public" checked)
+                            #error-message
+                                h4
+                    .right-block 
+                        h3 Create time sheme
+                        .label
+                            span Time sheme name
+                            input(type="text" id="timeshemename" name="timeshemename")
+                        ol
+                            each indx in [1, 2, 3, 4, 5]
+                                li(id=indx) 
+                                    .sheme
+                                        .displays(id='displays'+indx)
+                                            each start_stop in ["Start", "Stop"]
+                                                div(class=start_stop)
+                                                    h5=start_stop  
+                                                    .timedisplay
+                                                        .hours
+                                                            .timenumber
+                                                                span 1
+                                                            .timenumber
+                                                                span 1
+                                                        span :
+                                                        .minutes
+                                                            .timenumber
+                                                                span 1 
+                                                            .timenumber
+                                                                span 1  
+                                        .slider-range(id='slider-range'+indx for="displays"+indx) 
+                        .createsheme#submitsheme
+                            h4 Submit the sheme
+                .createroom#createroom
+                    h4 Create room
+            .room-settings-content.hidden
+                //- .room-block
+                //-     .room-name Name: 
+                //-         span.room-info Example room
+                //-     .room-id Id: 
+                //-         span.room-info 1
+                //-     .room-sheme Time scheme: 
+                //-         span.room-info Namesheme
+    
+
+
+                                            
+
+

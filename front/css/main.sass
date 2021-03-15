@@ -1,0 +1,140 @@
+@import 'media'
+@import '../../node_modules/normalize.css/normalize'
+
+$olive: #423B0B
+$mint: #B5FED9
+$light-green: #98cbb4
+$grey: #7ba09879
+$dark-green: #474935
+$black: #2c2808
+
+@mixin block-like
+    border-radius: 20px
+    background-color: $grey
+    box-shadow: 0 0 10px 5px rgba(206, 110, 110, 0.2)
+
+@mixin shedule 
+    @include block-like
+    .head
+        display: flex
+        justify-content: center
+        background-color: $dark-green
+        border-radius: 20px 20px 0 0
+        h2 
+            color: $light-green 
+    .subjects    
+        .subj-section
+            display: flex
+            color: $black
+            .num
+                display: flex
+                flex-basis: 10%
+                justify-content: center
+            .name
+                display: flex
+                flex-basis: 60%
+                justify-content: center
+            .time
+                display: flex
+                flex-basis: 30%
+                justify-content: center
+        .subj-section:last-child
+                border-bottom: none 
+
+@mixin button-like
+    border-radius: 15px
+    font-size: 25px
+    background-color: $mint
+    display: block
+    margin: 15px auto
+    opacity: 0.8
+    h4
+        padding: 5px
+        text-align: center 
+        color: $olive
+    &:hover
+        cursor: pointer
+        filter: contrast(85%)
+        opacity: .75
+
+
+body
+    background-color: #f7f5ef
+    p, h5, h2, h4, h3
+        color: $black
+        margin: 0
+    a
+        text-decoration: none
+        color: $black
+        cursor: pointer
+
+.header
+    padding: 0 10px
+    background-color: $mint
+    display: flex
+    max-height: 10vh
+    padding: 10px
+    border-radius: 0 0 30px 30px
+    border-bottom: 1px solid $light-green
+    box-shadow: -2px 0 20px 2px $light-green
+    color: $dark-green
+    .logo
+        flex-basis: 55%
+        display: flex
+        align-items: center
+        justify-content: start
+        h3
+            margin: 0
+            font-size: 30px
+            border-right: 2px solid $dark-green
+            padding: 8px
+            padding-left: 12px
+            padding-right: 12px
+        h3:last-child
+            border-right: none
+        img
+            width: 73px
+            height: 73px
+            margin: -10px 0
+            margin-right: 20px
+            border-radius: 20px
+            border: 2px solid $dark-green
+            margin-left: 8%
+            &::hover
+                cursor: pointer
+    .menu
+        flex-basis: 37%
+        display: flex
+        margin-right: 5%
+        margin-bottom: -10px
+        display: flex
+        flex-flow: row-reverse
+        align-items: center
+        a
+            margin-left: 20px
+            display: flex
+            align-items: center
+            height: 100%
+            transition: all 0.5s ease
+            box-sizing: border-box
+            border-top: 0 solid $mint
+        a:hover
+            box-shadow: inset 0 -4px 0 0 $olive
+        .men-button
+            font-size: 20px
+            font-weight: bold
+            color: $olive
+
+.hidden
+    display: none !important
+
+
+@import 'common/content'
+            
+@import 'common/sign'
+
+@import 'common/roomsetting'
+
+@import 'common/slider'
+
+@import 'common/auth-enter'

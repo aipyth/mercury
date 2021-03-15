@@ -1,0 +1,34 @@
+
+section(class="content")
+        .left-side
+            .shedule-main
+                .head
+                    h2 Monday
+                .subjects
+                    each val in [1, 2, 3, 4, 5]
+                        .subj-section(class=val)
+                            .num= val
+                            div(class="name" contenteditable="true") some subject
+                            .time 8:30 - 10:25
+                .tasks
+                    .tasks-head 
+                        h4 Tasks
+                    .task
+                        h5.task-subject Some subject
+                        p.task-detail some task example
+                        
+        .right-side
+            each i in ['shedule 1', 'shedule 2', 'shedule 3', 'shedule 4', 'shedule 5']
+                div(class=i)
+                    .head
+                        h2 Monday
+                    .subjects
+                        each val in [1, 2, 3, 4, 5]
+                            .subj-section(class=val)
+                                .num= val
+                                .name some subject
+            .nextweek-field
+                 .nextweek-button
+                    h3 Week 1
+                    span(id="prevweek" class="thisweekhiden") &#9664
+                    span(id="nextweek") &#9654

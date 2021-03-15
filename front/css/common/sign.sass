@@ -1,0 +1,93 @@
+.modal
+    display: flex
+    visibility: hidden
+    position: fixed
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    background: rgba(0,0,0,0.65)
+    justify-content: center
+    align-items: ceter
+    opacity: 0
+    transition: visibility 0s ease, opacity 0.3s ease 
+    .sign-up
+        display: flex
+        flex-direction: column
+        justify-content: center 
+        flex-basis: content
+        .hidden 
+            display: none
+        .sign-block
+            @include block-like
+            background-color: #abb8ad 
+            min-width: 500px
+            padding: 25px
+            position: relative
+            h2
+                color: $dark-green
+                text-align: center
+                font-size: 35px
+            .cross
+                display: inline-block
+                position: absolute
+                right: 4%
+                top: 4%
+                padding: 5px
+                color: rgba(0, 0, 0, 0.5)
+                span
+                    font-size: 25px
+            .cross:hover
+                color: rgba(0, 0, 0, 0.9)
+                cursor: pointer
+            .sign-head
+                font-size: 30px
+                padding-bottom: 10px
+                border-bottom: 3px  solid $dark-green
+                margin: 0 40px
+            .sign-form
+                padding-top: 50px
+                padding-bottom: 30px
+                border-bottom: 3px  solid $dark-green
+                margin: 0 40px
+                margin-bottom: 37px
+                justify-content: center
+                #sign-errors 
+                    p
+                        color: red !important
+                        padding-left: 20px
+                        font-size: 15px
+                .form
+                    display: flex
+                    margin-bottom: 30px
+                    justify-content: center
+                    input
+                        flex-basis: 90%
+                        font-size: 20px
+                        border-radius: 10px
+                        border: 1px solid $black
+                        padding: 5px
+                        background-color: #edf5f1
+                        transition: box-shadow 0.3s ease
+                    input:focus
+                        border-radius: 10px
+                        box-shadow: 0 0 0 4px solid $black
+                        outline: none
+                a
+                    @include button-like
+                    margin-top: 40px !important
+                    width: 75%
+                p 
+                    font-size: 20px
+                    text-align: center
+                    span#sign-underline
+                        &::hover
+                            text-decoration: underline
+                            cursor: pointer
+                        color: $dark-green
+                .form:last-child
+                    margin-bottom: 0
+
+.vis
+    visibility: visible
+    opacity: 1

@@ -1,0 +1,18 @@
+section(class="modal")
+    .sign-up
+        div(class="sign-block" id="sign-form")
+            .cross
+                span ✖
+            .sign-head 
+                h2 Log in
+            .sign-form
+                .form
+                    input(placeholder="E-mail" id="email")
+                .form
+                    input(type="password" placeholder="Password" id="password")
+                #sign-errors
+                a(id="next")
+                    h4 Log in
+                p Not signed up? | 
+                    span(id="sign-underline")  Sign up
+        div(class="sign-block hidden" id="sign-sucess")           

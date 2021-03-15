@@ -1,0 +1,50 @@
+$w: 20em
+$h: 1em
+    
+@mixin track() 
+  background: none 
+  height: 100%
+  width: 100%
+
+
+@mixin thumb() 
+  background: currentcolor
+  border: none 
+  border-radius: 0 
+  pointer-events: auto 
+  width: $h 
+  height: $h
+
+.wrap 
+    display: grid
+    grid-template-rows: max-content 1em
+    margin: 1em auto
+    width: 20em
+    overflow: hidden 
+    position: relative
+    background: linear-gradient(0deg, #ccc 1em, transparent 0)
+
+.sr-only 
+    position: absolute
+    clip-path: inset(50%)
+
+input[type="range"] 
+    border: 1px solid $dark-green
+    grid-column: 1
+    grid-row: 2
+    -webkit-appearance: none
+    background: none 
+    color: #000
+    font: inherit 
+    margin: 0
+    pointer-events: none 
+    &::-webkit-slider-runnable-track, &::-webkit-slider-thumb, &  
+        -webkit-appearance: none 
+    &::-webkit-slider-runnable-track  
+        @include track 
+    &::-moz-range-track  
+        @include track 
+    &::-webkit-slider-thumb 
+         @include thumb 
+    &::-moz-range-thumb  
+        @include thumb 
