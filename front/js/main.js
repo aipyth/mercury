@@ -48,8 +48,13 @@ $('#shemes').click(()=>{
 })
 
 $(`.header .logo img`).click(() => {
-    $('section.content').removeClass('hidden')
-    $('.room-settings').addClass('hidden')
+    if(picked_room_id){
+        $('section.content').removeClass('hidden')
+        $('.room-settings').addClass('hidden')
+    } else {
+        $('.room-settings').addClass('hidden')
+        selectRoomMessage.show()
+    }
 })
 
 $('#nextweek').click(() => {
@@ -75,12 +80,12 @@ $('#prevweek').click(() => {
 //////////////////// STARTING MERCURY ///////////////////
 
 var token = read_cookie('token')
-var picked_room_id = 4
+var picked_room_id = read_cookie('room')
 
 const checkForAuthorization = function() {
-    if (token != "undefined") {
+    if (token != "undefined" && token) {
         $('.header .menu').removeClass('hidden')
-        $('section.content').removeClass('hidden')
+        checkForRoom()
         $('section.auth-enter').addClass('hidden')
     } else {
         $('.header .menu').addClass('hidden')
@@ -89,10 +94,16 @@ const checkForAuthorization = function() {
     }
 }
 
-$(function () {
-    checkForAuthorization()
-})
-
+const checkForRoom = async function() {
+    if(token) {
+        if(picked_room_id) {
+            await getWeek()
+            displayDays(Weeks[this_week])
+        } else {
+            selectRoomMessage.show()
+        }
+    } 
+}
 
 ///////////////////////////////////////////////////////
 
@@ -299,6 +310,7 @@ const getSchema = async (id) => {
     return scheme
 }
 const getWeek = async () => {
+    selectRoomMessage.hide()
    var room = await getRoom(picked_room_id)
    var timeschemes = await getSchema(room.time_schema)
    all_subjects_server = room.subjects
@@ -307,13 +319,21 @@ const getWeek = async () => {
        var time = '' + timeschemes.items[item].Start + ' - ' + timeschemes.items[item].Stop
        array_of_times.push(time)
    }
+
+   var shortperiod = (room.period == 7)
+   if (shortperiod) $('section.content .nextweek-field').addClass('hidden')
+
+   // Adding timeschemes from server to client var Weeks
    for (let day of ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]) {
        Weeks[0][day].times = array_of_times
+       if (!shortperiod) Weeks[1][day].times = array_of_times
    }
+   // Adding subjects from server to client var Weeks
    for (let subject of all_subjects_server){
        for(let day in subject.days_and_orders){
             for (let order of subject.days_and_orders[day]){
                 Weeks[0][day].subjects[order] = subject.name
+                if (!shortperiod) Weeks[1][day].subjects[order] = subject.name
             }
         }
     }
@@ -369,9 +389,25 @@ $('.shedule').on('click', function(){
 })
 
 
+var selectRoomMessage = {
+    show: function() {
+        $('section.content').addClass('hidden')
+        $('.select-room-message').removeClass('hidden')
+        $('#room-sett').click(()=>{
+            $('.select-room-message').addClass('hidden')
+            $('.room-settings').removeClass('hidden')
+            displayRooms()
+        })
+    },
+    hide: function() {
+        $('section.content').removeClass('hidden')
+        $('.select-room-message').addClass('hidden')
+    }
+}
+
+
 $(async function() {
-    await getWeek()
-    displayDays(Weeks[this_week])
+   checkForAuthorization()
 })
 
 
@@ -382,27 +418,8 @@ $(async function() {
 
 var Sign_up = false
 
-async function signUpSucessful(data) {
-    $('#sign-sucess').html(`<h2>Welcome to the club, buddy </h2>
-    <h2>${data.email}</h2>`)
-    $('#sign-form').addClass('hidden')
-    $('#sign-sucess').removeClass('hidden')
-    setTimeout(() => {
-        $('.modal').removeClass('vis')
-    }, 5000);
-    
-    window.fetch('/api/api-token-auth/', {
-        headers: {
-            'Accept': 'application/json, text/plain',
-            'Content-Type': 'application/json;charset=UTF-8'
-        },
-        method: 'POST', 
-        body: JSON.stringify({username: data.email, password: data.password})
-    })
-    .then(response => response.json().then(data => {
-        saveToken(data)
-        checkForAuthorization()
-    }))
+async function signUpSucessful(data, password) {
+    logIn([data.email, password])
 }
 
 function signUpFail(data) {
@@ -414,7 +431,7 @@ function signUpFail(data) {
     }, 7000);
 }
 
-function logINSucessful(data, ...args) {
+async function logINSucessful(data, ...args) {
     $('#sign-sucess').html(`<h2>Welcome to the club, buddy </h2>
     <h2>${args[0]}</h2>`)
     $('#sign-form').addClass('hidden')
@@ -422,7 +439,7 @@ function logINSucessful(data, ...args) {
     setTimeout(() => {
         $('.modal').removeClass('vis')
     }, 5000);
-    saveToken(data)
+    await saveToken(data)
     checkForAuthorization()
 }
 
@@ -445,7 +462,7 @@ function signUp([username, password]) {
         body: JSON.stringify({email: username, password: password})
     })
     .then(
-       async response => await responseResult(response, 201, signUpSucessful, signUpFail)
+       async response => await responseResult(response, 201, signUpSucessful, signUpFail, password)
     )
     .catch((err) => log(err))
 }
@@ -487,7 +504,7 @@ function toLogIn(){
 }
 
 
-function write_cookie (name, value)
+async function write_cookie (name, value)
 {
         // Build the expiration date string:
         var expiration_date = new Date();
@@ -527,9 +544,9 @@ function read_cookie (key, skips)
         return null;
 }
 
-function saveToken(data) {
-    const token = data.token
-    write_cookie('token', token)
+async function saveToken(data) {
+    token = data.token
+    await write_cookie('token', token)
 }
 
 $('.modal .cross').on('click', ()=>{
@@ -845,6 +862,7 @@ const getShemeName = async id => {
 const displayRooms = async () => {
     var list_of_rooms = await getRooms()
     var room_list_html = $('.settings-content').children()[1]
+    $(room_list_html).html('')
     for (let room of list_of_rooms.results)
         $(room_list_html).append(`
             <div class="room-block">
@@ -858,6 +876,7 @@ const displayRooms = async () => {
         $(this).on('click', async function() {
             let id = $(this).find('.room-id').find('.room-info').text()
             picked_room_id = parseInt(id)
+            await write_cookie('room', picked_room_id)
             await getWeek()
             displayDays(Weeks[this_week])
             $('section.content').removeClass('hidden')
