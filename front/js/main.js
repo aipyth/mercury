@@ -105,6 +105,22 @@ const checkForRoom = async function() {
     } 
 }
 
+const checkForUrl = async function () {
+    var url_slug = window.location.href.split('/')[3]
+    if (url_slug) {
+        var rooms = await getRooms()
+        rooms = rooms.results 
+        var slug_correct = false
+        for (var room of rooms) {
+            if (room.slug == url_slug) {
+                await write_cookie('room', room.id)
+                slug_correct = true
+            } 
+        }
+        if(!slug_correct) alert("Can't get room by this url, is it correct?")
+    }
+}
+
 ///////////////////////////////////////////////////////
 
 ///////////////////// SHEDULE //////////////////////
@@ -407,7 +423,8 @@ var selectRoomMessage = {
 
 
 $(async function() {
-   checkForAuthorization()
+    if (token) await checkForUrl()
+    checkForAuthorization()
 })
 
 
@@ -704,7 +721,7 @@ $('.sheme .slider-range').each(function(i) {
     })
 })
 
-function timeSchemesPost(sheme_name) {
+async function timeSchemesPost(sheme_name) {
     
     window.fetch('/api/timeschemes/', 
     {
@@ -727,7 +744,7 @@ function timeSchemesPost(sheme_name) {
     .catch((err) => log(err))
 }
 
-function createRoomPost(room_settings) {
+async function createRoomPost(room_settings) {
     
     window.fetch('/api/rooms/', 
     {
@@ -775,13 +792,14 @@ $('#submitsheme').click(() => {
     var sheme_name = $('.label #timeshemename').val()
     if (sheme_name != '')
     {
-        timeSchemesPost(sheme_name);
         (async () => {
+            await timeSchemesPost(sheme_name);
             var time_shemes = await getTimeShemes()
             log(time_shemes)
             var options = `<option> ... </option>`
             for (let sheme of time_shemes.results) {
-                options = options + `<option>${sheme.name}</option>`
+                if (sheme.name == sheme_name) options = options + `<option selected>${sheme.name}</option>`
+                else options = options + `<option>${sheme.name}</option>`
             }
             $('#namesheme').html(options)
         })()
@@ -792,7 +810,7 @@ $('#submitsheme').click(() => {
 
 })
 
-$('#createroom').click(() => {
+$('#createroom').click(async () => {
     if ($('#namesheme').val() == '...') {
         $('#error-message h4').text(`Error Time sheme field is empty`)
         return
@@ -811,13 +829,17 @@ $('#createroom').click(() => {
         room_settings[field_name] = $(`.label #${id}`).val()
     }
     room_settings.addField('name')
-    var somevalue = $(`.label #period`).val()
     room_settings.period = parseInt($(`.label #period`).val())
     room_settings.addField('start_date', 'start-date')
     room_settings.addField('end_date', 'end-date')
+    room_settings.addField('slug')
     room_settings.public = ($(`.label #public`).val() == 'on')
     room_settings['time_schema'] = Time_sheme.id
-    createRoomPost(room_settings)
+    await createRoomPost(room_settings)
+    displayRooms()
+    $($('.settings-content').children()[setting_id]).addClass('hidden')
+    setting_id = (setting_id + 1) % number_of_settings
+    $($('.settings-content').children()[setting_id]).removeClass('hidden')
 })  
 
 $('#namesheme').change(function() {
