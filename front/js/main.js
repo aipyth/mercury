@@ -80,7 +80,7 @@ $('#prevweek').click(() => {
 //////////////////// STARTING MERCURY ///////////////////
 
 var token = read_cookie('token')
-var picked_room_id = read_cookie('room')
+var picked_room_id = parseInt(read_cookie('room'))
 
 const checkForAuthorization = function() {
     if (token != "undefined" && token) {
@@ -260,7 +260,7 @@ const postSubjects = () => {
 
                     days_and_orders: object_of_days_and_orders[subject],
                     name: subject,
-                    room: 1
+                    room: picked_room_id
                 })
             })
             .then (
