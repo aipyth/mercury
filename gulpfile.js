@@ -8,6 +8,7 @@ const { stream } = require('browser-sync')
 const imageMinifier = require('./gulp/tasks/image-minifier')
 const server = require('browser-sync').create()
 const clean = require('./gulp/tasks/clean')
+const compileFiles = require('./gulp/tasks/compiler')
 const fs = require('fs');
 
 const writeStatic = (cb) => {
@@ -22,21 +23,16 @@ const writeStatic = (cb) => {
 }
 
 function serve(cb) {
-    
-    server.init({
-        server: 'src',
-        notify: false,
-        open: true,
-        cors: true
-    })
     gulp.watch('front/css/**/*.sass', series(styles)).on('change', server.reload)
-    gulp.watch('front/js/**/*.js', series(script)).on('change', server.reload)
+    gulp.watch('front/js/modules/*.js', series(compileFiles))
+    gulp.watch('front/js/main_mod.js', series(compileFiles))
+    gulp.watch('front/js/main.js', series(script))
     gulp.watch('front/pages/**/*.pug', series(pug2html, writeStatic))
     gulp.watch('src/api/templates/*.html').on('change', server.reload)
-    gulp.watch('front/img/*', series(imageMinifier)).on('change', server.reload)
+    // gulp.watch('front/img/*', series(imageMinifier)).on('change', server.reload)
     return cb
 }  
-module.exports.build = series(clean, pug2html, writeStatic, styles, script, imageMinifier)
+module.exports.build = series(clean, pug2html, writeStatic, styles, compileFiles, script)
 module.exports.start = series(module.exports.build, serve)
 
 
