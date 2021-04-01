@@ -23,11 +23,12 @@ const writeStatic = (cb) => {
 }
 
 function serve(cb) {
-    gulp.watch('front/css/**/*.sass', series(styles)).on('change', server.reload)
-    gulp.watch('front/js/modules/*.js', series(compileFiles))
-    gulp.watch('front/js/main_mod.js', series(compileFiles))
-    gulp.watch('front/js/main.js', series(script))
-    gulp.watch('front/pages/**/*.pug', series(pug2html, writeStatic))
+    gulp.watch('src/front/css/**/*.sass', series(styles)).on('change', server.reload)
+    gulp.watch('src/front/js/modules/*.js', series(compileFiles))
+    gulp.watch('src/front/js/main_mod.js', series(compileFiles))
+    gulp.watch('src/front/js/main.js', series(script))
+    gulp.watch('src/front/pages/**/*.pug', series(pug2html, writeStatic))
+    
     gulp.watch('src/api/templates/*.html').on('change', server.reload)
     // gulp.watch('front/img/*', series(imageMinifier)).on('change', server.reload)
     return cb

@@ -1,7 +1,7 @@
 {
-  "name": "ne-tehno-cite",
-  "version": "1.0.0",
-  "description": "",
+  "name": "mercury",
+  "version": "0.1",
+  "description": "Service to provide schedule creation, edition and observation.",
   "main": "index.js",
   "scripts": {
     "start": "gulp start",
