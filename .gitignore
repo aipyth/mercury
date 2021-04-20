@@ -143,3 +143,7 @@ node_modules
 
 src/api/media/
 postgres/
+
+.idea/
+bin/
+pkg/

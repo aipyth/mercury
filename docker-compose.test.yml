@@ -1,0 +1,30 @@
+version: '3.3'
+
+services:
+  db:
+    container_name: db_test
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./src/db:/db:Z
+      - ./src/db/schema/main.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 8004:5432
+
+
+  api:
+    container_name: api_test
+    build:
+      context: ./src/goapi
+      dockerfile: Dockerfile
+    volumes:
+      - ./src/goapi:/app:Z
+    ports:
+      - 8005:8080
+    depends_on:
+      - db
+    env_file:
+      - ./.env
